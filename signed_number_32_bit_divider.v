@@ -21,7 +21,7 @@ module signed_number_32_bit_divider (
         remainder_reg = 0;
         sign = dividend[31] ^ divisor[31]; // Xác định dấu của kết quả
 
-        // Chuyển đổi số bị chia và số chia sang dạng bù 2 nếu chúng là số âm
+        // Chuyển đổi số bị chia và số chia sang dạng bù 2 nếu chúng là số âm  
         if (dividend[31] == 1) temp_dividend = -dividend;
         if (divisor[31] == 1) temp_divisor = -divisor;
 
