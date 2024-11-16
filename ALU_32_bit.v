@@ -18,6 +18,8 @@ module ALU_32_bit #(parameter N  = 32 )
 
     wire signed [N - 1: 0] quotient;    //Result of divider
     wire signed [2*N - 1: 0] product;    //Result of multiplier
+
+    wire signed [N - 1: 0] remainder_wire;
     wire signed [N : 0] sum;
     wire signed [N : 0] diff;
 
@@ -126,6 +128,7 @@ module ALU_32_bit #(parameter N  = 32 )
             begin
                 result_reg = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
                 remainder_reg = 32'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
+                overflow = 1;
             end
             else if (a_reg == 0)
             begin
@@ -135,21 +138,24 @@ module ALU_32_bit #(parameter N  = 32 )
             else
             begin
                 result_reg = quotient;
-                remainder_reg = remainder;
+                remainder_reg = remainder_wire;
             end
         end
     end
+
+
+
 
     always @(result_reg or remainder_reg)
     begin
         result = result_reg[N - 1:0];
         remainder = remainder_reg;
-        zero = (result == 0);
+        zero = (result === 0);
     end
 
-    signed_number_32_bit_adder adder(.A(a_reg), .B(b_reg), .sum(sum));
-    signed_number_32_bit_multiplier multiplier(.a(a_reg), .b(b_reg), .product(product));
-    signed_number_32_bit_divider divider(.dividend(a_reg), .divisor(b_reg), .quotient(quotient), .remainder(remainder));
-    signed_number_32_bit_subtractor subtractor(.A(a_reg), .B(b_reg), .diff(diff));
+    signed_number_32_bit_adder adder(.A(a), .B(b), .sum(sum));
+    signed_number_32_bit_multiplier multiplier(.a(a), .b(b), .product(product));
+    signed_number_32_bit_divider divider(.dividend(a), .divisor(b), .quotient(quotient), .remainder(remainder_wire));
+    signed_number_32_bit_subtractor subtractor(.A(a), .B(b), .diff(diff));
 
 endmodule

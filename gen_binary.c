@@ -6,7 +6,7 @@ void printBinary(signed int number) {
         // In bit thứ i
         printf("%d", (number >> i) & 1);
         if (i % 4 == 0) {
-            printf(" ");  // In khoảng trắng sau mỗi 4 bit cho dễ đọc
+            printf("");  // In khoảng trắng sau mỗi 4 bit cho dễ đọc
         }
     }
     printf("\n");
@@ -58,9 +58,10 @@ int main() {
     signed int a;
     signed int b;
 
-    calculate(0,0);
+    calculate( 2147483647  , 1);
 
-    
+
+
 
     return 0;
 }

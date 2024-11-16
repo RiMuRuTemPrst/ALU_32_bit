@@ -1,4 +1,4 @@
-module signed_number_multiplier (
+module signed_number_32_bit_multiplier (
     input signed [31:0] a,  // first number
     input signed [31:0] b,  // second number
     output reg signed [63:0] product  // product
@@ -18,12 +18,12 @@ module signed_number_multiplier (
 
         // Convert negative numbers to 2's complement if necessary
         if (a[31] == 1) multiplicand = -a;
-        if (b[31] == 1) multiplier = -b;
+        if (b[31] == 1) multiplier = -b;    
 
         // Th?c hi?n ph�p nh�n b?ng d?ch bit v� c?ng d?n
         if (multiplier[0] == 1) temp_product = temp_product + (multiplicand << 0);
         if (multiplier[1] == 1) temp_product = temp_product + (multiplicand << 1);
-        if (multiplier[2] == 1) temp_product = temp_product + (multiplicand << 2);
+        if (multiplier[2] == 1) temp_product = temp_product + (multiplicand << 2) ;
         if (multiplier[3] == 1) temp_product = temp_product + (multiplicand << 3);
         if (multiplier[4] == 1) temp_product = temp_product + (multiplicand << 4);
         if (multiplier[5] == 1) temp_product = temp_product + (multiplicand << 5);
