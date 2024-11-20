@@ -1,3 +1,4 @@
+// Testbench sửa lỗi mất Test Case đầu tiên
 `timescale 1ns / 1ps
 
 module tb_signed_number_32_bit_divider;
@@ -34,89 +35,71 @@ module tb_signed_number_32_bit_divider;
 
     // Test sequence
     initial begin
-        // Initialize inputs
-        rst_n = 0;
-        start = 0;
-        dividend = 0;
-        divisor = 0;
+    rst_n = 0;
+    start = 0;
+    dividend = 0;
+    divisor = 0;
 
-        // Reset the module
-        #20;
-        rst_n = 1;
+    // Reset module
+    #50;
+    rst_n = 1;
 
-        // Test Case 1: 50 / 3
-        #10;
-        dividend = 50;
-        divisor = 3;
-        start = 1;
-        #10;
-        start = 0; // Release start
-        wait (done); // Wait for completion
-        #10;
+    // Test Case 1: 50 / 3
+    #10;
+    dividend = 50;
+    divisor = 3;
+    start = 1;
+    #10;
+    start = 0;
+    wait (done);
+    $display("Test Case 1: 50 / 3");
+    $display("Quotient: %d, Remainder: %d", quotient, remainder);
 
-        // Display results
-        $display("Test Case 1: 50 / 3");
-        $display("Quotient: %d, Remainder: %d", quotient, remainder);
+    // Test Case 2: -50 / 3
+    #10;
+    dividend = -50;
+    divisor = 3;
+    start = 1;
+    #10;
+    start = 0;
+    wait (done);
+    $display("Test Case 2: -50 / 3");
+    $display("Quotient: %d, Remainder: %d", quotient, remainder);
 
-        // Test Case 2: -50 / 3
-        #10;
-        dividend = -50;
-        divisor = 3;
-        start = 1;
-        #10;
-        start = 0; // Release start
-        wait (done); // Wait for completion
-        #10;
+    // Test Case 3: 50 / -3
+    #10;
+    dividend = 50;
+    divisor = -3;
+    start = 1;
+    #10;
+    start = 0;
+    wait (done);
+    $display("Test Case 3: 50 / -3");
+    $display("Quotient: %d, Remainder: %d", quotient, remainder);
 
-        // Display results
-        $display("Test Case 2: -50 / 3");
-        $display("Quotient: %d, Remainder: %d", quotient, remainder);
+    // Test Case 4: -50 / -3
+    #10;
+    dividend = -50;
+    divisor = -3;
+    start = 1;
+    #10;
+    start = 0;
+    wait (done);
+    $display("Test Case 4: -50 / -3");
+    $display("Quotient: %d, Remainder: %d", quotient, remainder);
 
-        // Test Case 3: 50 / -3
-        #10;
-        dividend = 50;
-        divisor = -3;
-        start = 1;
-        #10;
-        start = 0; // Release start
-        wait (done); // Wait for completion
-        #10;
+    // Test Case 5: Division by zero
+    #10;
+    dividend = 50;
+    divisor = 0;
+    start = 1;
+    #10;
+    start = 0;
+    wait (done);
+    $display("Test Case 5: 50 / 0");
+    $display("Quotient: %d, Remainder: %d", quotient, remainder);
 
-        // Display results
-        $display("Test Case 3: 50 / -3");
-        $display("Quotient: %d, Remainder: %d", quotient, remainder);
-
-        // Test Case 4: -50 / -3
-        #10;
-        dividend = -50;
-        divisor = -3;
-        start = 1;
-        #10;
-        start = 0; // Release start
-        wait (done); // Wait for completion
-        #10;
-
-        // Display results
-        $display("Test Case 4: -50 / -3");
-        $display("Quotient: %d, Remainder: %d", quotient, remainder);
-
-        // Test Case 5: Division by zero
-        #10;
-        dividend = 50;
-        divisor = 0;
-        start = 1;
-        #10;
-        start = 0; // Release start
-        wait (done); // Wait for completion
-        #10;
-
-        // Display results
-        $display("Test Case 5: 50 / 0");
-        $display("Quotient: %d, Remainder: %d", quotient, remainder);
-
-        // Finish simulation
-        #50;
-        $finish;
-    end
+    $finish;
+end
 
 endmodule
